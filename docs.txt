@@ -1,0 +1,97 @@
+I/ Nummeric
+	1/ Integer:
+		TINYINT: 1(Byte) : -128 ~ 127
+		SMALLINT: 2(Byte) : -32768 ~ 32767
+		MEDIUMINT: 3(Byte) : -8388608 ~ 8388607
+		INTEGER: 4(Byte) : -2147483648 ~ 2147483647
+		BIGINT: 8(Byte) : ~
+	2/ Point Values (Float, Double, Decimal(xx, yy))
+
+II/ Date & Time:
+	1/ Date: YYYY-MM-DD
+		- CURDATE(): get current date
+		- DATE('2017-01-31 12:01:00') => 2017-01-31
+		- ADDDATE('2017-01-20', 2) => 2017-01-22
+	2/ Time: HH:MM:SS
+		- CURTIME(): get current time
+		- TIMEDIFF('23:34:32', '22:00:00'); => 01:34:32 | SELECT TIMEDIFF('211344', 201123) => 01:02:21
+		- TIME('2017-01-31 11:06:43'); => 11:06:43
+
+	3/ DateTime:
+		- NOW => return curent datetime
+		- DAYNAME('2017@10@17 18@20@28') => Tuesday
+	4/ Year:
+		- YEAR(CURDATE())
+	5/ Timestamp: (Auto fill)
+		- Range :  '1970-01-01 00:00:01' UTC to '2038-01-19 03:14:07'
+		- TIMESTAMP được chuyển đổi từ múi giờ hiện tại sang UTC trong khi lưu trữ, và chuyển ngược trở lại từ UTC sang múi giờ hiện tại trong lúc lấy ra
+		- TIMESTAMP(14): YYYYHHDDHHMMSS
+		- TIMESTAMP(12): YYHHDDHHMMSS
+		- TIMESTAMP(10): YYHHDDHHMM
+		- TIMESTAMP(8):  YYYYMMDD
+		- TIMESTAMP(6):  YYMMDD
+		- TIMESTAMP(4):  YYMM
+		- TIMESTAMP(2):  YY
+III/ STRING
+	LENGTH(FirstName) : to get length of string
+	1/ Char: 0~255, right padded when character not enough with specific define 
+	2/ Varchar: 0~65535
+	3/ Binary and Varbinary
+	4/ Blob: to storage image, document... TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB
+	6/ Text: TO storage large textual: blog, page...: TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT
+	7/ Enum: 
+		- Một đối tượng chuỗi có giá trị được chọn từ một danh sách các giá trị được đưa ra ở thời điểm tạo ra bảng
+		- có thể thực hiện insert nhưng tên bảng: <table_name>Table 
+		- sau mỗi lần tạo dữ liệu hay insert dữ liệu thì dữ liệu mới sẽ thay thế hoàn toàn dữ liệu cũ
+	8/ Json
+		- JSON_ARRAY(params): take a params and then convert to JSON Array
+		- JSON_OBJECT(params): take a params and then convert to JSON Object
+		- auto validate data
+		- can't have a default value
+
+VI/ CREATE
+	alway used to create: indexes, views, events, routines, and triggers.
+	1/ Create table:
+		CREATE TABLE Testing(Id INTEGER);
+V/ ALTER
+	ALTER TABLE Testing RENAME TO TestTable; 
+	ALTER TABLE TestTable ADD iValues INT;
+	ALTER TABLE TestTable ADD PRIMARY KEY (Id);
+VI/ DELETE TABLE:
+	TRUNCATE: TRUNCATE TABLE <table_name> : xóa toàn bộ dữ liệu trong bảng
+
+VII/ RELATIONSHIP
+	1/ One to Many
+	2/ One to One:
+		Tabel A and B, Table A primary key to table B on Unique column
+	3/ Many to Many
+		1 product can be bought many customs
+		1 custom can buy many product
+		*** If you change data in one or both side, you can't know that which record they were referring to. => third table called "junction" table 
+
+VII/ QUERY STATEMENT
+	1/ Group by:
+		Must be after "WHERE" clause and must before "ORDER BY"
+	2/ Distinct:
+		SELECT DISTINCT Customer FROM
+	3/ Utility function:
+		avg(), count(), max(), min(), sum(),...
+
+VIII/ SUBQUERY:
+	1/ Subquery into INSERT statement:
+		INSERT INTO Cars2 SELECT * FROM Cars;
+	2/ Scalar Subquery:
+		A scalar subquery returns a single value.
+		SELECT Name FROM Customers WHERE CustomerId=(SELECT CustomerId FROM Reservations WHERE Id=5); => scalar subquery
+	3/ Table Subquery:
+		A table subquery returns a result table of zero or more rows.
+		SELECT Name FROM Customers WHERE CustomerId IN (SELECT DISTINCT CustomerId FROM Reservations);
+
+====UTILITY===
+SHOW COLUMNS FROM TestTable;: Show all column in a table
+DESCRIBE = SHOW COLUMNS FROM
+ALTER TABLE TestTable CHANGE COLUMN iValues iValues1 INT; : change name iValues to iValues1
+
+==============
+? alter tale for: new column, edit column, delete column, how i can to do about that? 
+? understand the relationship many to many
