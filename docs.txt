@@ -95,3 +95,5 @@ ALTER TABLE TestTable CHANGE COLUMN iValues iValues1 INT; : change name iValues 
 ==============
 ? alter tale for: new column, edit column, delete column, how i can to do about that? 
 ? understand the relationship many to many
+
+select id from category where name ='Xe may'
